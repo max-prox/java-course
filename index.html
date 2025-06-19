@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Learn it !!!</title>
+  <title>Learn it!!!</title>
   <style>
     body {
       margin: 0;
@@ -21,21 +21,33 @@
       text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
     }
 
-    .course {
+    .courses {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin-top: 2rem;
+    }
+
+    .course {
+      margin: 1rem 0;
       padding: 1rem 2rem;
       border: 2px solid #0ff;
       border-radius: 10px;
       text-align: center;
       cursor: pointer;
       transition: 0.3s;
-      box-shadow: 0 0 15px #0ff;
+      box-shadow: 0 4px #00cccc, 0 0 15px #0ff;
+    }
+
+    .course:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px #009999;
     }
 
     .course:hover {
       background-color: #0ff;
       color: #000;
-      box-shadow: 0 0 30px #0ff, 0 0 60px #0ff;
+      box-shadow: 0 6px #00cccc, 0 0 30px #0ff, 0 0 60px #0ff;
     }
 
     .content {
@@ -51,10 +63,29 @@
       border-right: 2px solid #0ff;
     }
 
-    .sidebar h2 {
+    .back-button {
+      display: inline-block;
       margin-bottom: 1rem;
       color: #0ff;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: 1px solid #0ff;
+      border-radius: 5px;
+      transition: 0.3s;
+      box-shadow: inset 0 -4px 0 #00cccc, 0 4px 6px rgba(0,255,255,0.3);
+      background-color: transparent;
+    }
+
+    .back-button:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: inset 0 -4px 0 #009999, 0 4px 12px rgba(0,255,255,0.5);
+    }
+
+    .back-button:active {
+      transform: translateY(2px);
+      box-shadow: inset 0 -2px 0 #006666, 0 2px 6px rgba(0,255,255,0.4);
     }
 
     .video-title {
@@ -127,50 +158,54 @@
     .sticky-footer .close-btn:hover {
       color: #000;
     }
+
   </style>
 </head>
 <body>
-  <h1>Learn with aradhy</h1>
+  <h1>Earn With Aradhy</h1>
 
-  <div class="course" onclick="toggleContent()">Java Basic to Advance</div>
+  <div class="courses" id="courseList">
+    <div class="course" onclick="openCourse('java')">Java Basic to Advance</div>
+    <!-- Add more course divs here -->
+  </div>
 
-  <div class="content hidden" id="courseContent">
+  <div class="content hidden" id="javaCourse">
     <div class="sidebar">
-      <h2>&larr; Java Course</h2>
+      <div class="back-button" onclick="backToCourses()">&larr; Java Basic to Advance</div>
       <div class="video-title" onclick="playVideo(this, 'k43UfeEh1V8IiSDd0YA')">1st Video - Java Introduction</div>
       <div class="video-title" onclick="playVideo(this, 'k5IBQB7fJqdwYdDhmL6')">2st Video - Basics Of Java Syntax</div>
       <div class="video-title" onclick="playVideo(this, 'k7xz6H0OtSuvw0DhrBm')">3rd Video - Introduction To Control Flow Statements</div>
       <div class="video-title" onclick="playVideo(this, 'k6SgrogsWNDc5BDhrTW')">4th Video - Strings And Arrays</div>
+      <div class="video-title" onclick="playVideo(this, 'k6BTvVepXbRiU6DhsNo')">5th Video - Introduction To Methods</div>
+      <div class="video-title" onclick="playVideo(this, 'k6upu3emyRyJv7DhAkE')">6th Video - Introduction To OOPS</div>
+      <div class="video-title" onclick="playVideo(this, 'k31yGm1SEcA0SXDhCo8')">7th Video - Exception Handling In Java </div>
 
 
-       <!-- Add more video-title divs for more videos  -->
+      <!-- Add more video-title divs here -->
     </div>
-
     <div class="video-player">
       <iframe id="videoPlayer" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
-
   <div class="sticky-footer" id="stickyAlert">
     ⚠︎ <span>Please wait! Sometimes player takes up to 2 minutes to load videos.</span>
     <button class="close-btn" onclick="document.getElementById('stickyAlert').style.display='none'">✖</button>
   </div>
 
   <script>
-    function toggleContent() {
-      const content = document.getElementById('courseContent');
-      content.classList.toggle('hidden');
+    function openCourse(courseId) {
+      document.getElementById('courseList').classList.add('hidden');
+      document.getElementById(courseId + 'Course').classList.remove('hidden');
+    }
+
+    function backToCourses() {
+      document.getElementById('courseList').classList.remove('hidden');
+      document.querySelectorAll('.content').forEach(el => el.classList.add('hidden'));
     }
 
     function playVideo(element, videoId) {
-      // Remove active class from all video titles
-      const allTitles = document.querySelectorAll('.video-title');
-      allTitles.forEach(el => el.classList.remove('active'));
-
-      // Add active class to clicked video
+      document.querySelectorAll('.video-title').forEach(el => el.classList.remove('active'));
       element.classList.add('active');
-
-      // Load video in player
       const iframe = document.getElementById('videoPlayer');
       iframe.src = `https://geo.dailymotion.com/player/x1ayyu.html?video=${videoId}`;
     }
