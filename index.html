@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn Build Earn</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #0ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-top: 2rem;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+
+    .course {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      border: 2px solid #0ff;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #0ff;
+    }
+
+    .course:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: 0 0 30px #0ff, 0 0 60px #0ff;
+    }
+
+    .content {
+      display: flex;
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 2rem;
+    }
+
+    .sidebar {
+      width: 30%;
+      padding: 1rem;
+      border-right: 2px solid #0ff;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 1rem;
+      color: #0ff;
+      font-size: 1.5rem;
+    }
+
+    .video-title {
+      margin: 0.5rem 0;
+      padding: 0.5rem 1rem;
+      border: 1px solid #0ff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px #0ff;
+    }
+
+    .video-title:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+    }
+
+    .video-title.active {
+      background-color: red;
+      color: white;
+      border-color: red;
+    }
+
+    .video-player {
+      width: 70%;
+      padding: 1rem;
+    }
+
+    #videoPlayer {
+      width: 100%;
+      height: 450px;
+      border: 2px solid #0ff;
+      border-radius: 10px;
+      box-shadow: 0 0 25px #0ff;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Learn Build Earn</h1>
+
+  <div class="course" onclick="toggleContent()">Java Basic to Advance</div>
+
+  <div class="content hidden" id="courseContent">
+    <div class="sidebar">
+      <h2>&larr; Java Course</h2>
+      <div class="video-title" onclick="playVideo(this, 'k43UfeEh1V8IiSDd0YA')">1st Video - Java Introduction</div>
+      <div class="video-title" onclick="playVideo(this, 'k5IBQB7fJqdwYdDhmL6')">2st Video - Basics Of Java Syntax</div>
+      <div class="video-title" onclick="playVideo(this, 'k7xz6H0OtSuvw0DhrBm')">3rd Video - Introduction To Control Flow Statements</div>
+
+      <!-- Add more video-title divs for more videos -->
+    </div>
+
+    <div class="video-player">
+      <iframe id="videoPlayer" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    function toggleContent() {
+      const content = document.getElementById('courseContent');
+      content.classList.toggle('hidden');
+    }
+
+    function playVideo(element, videoId) {
+      // Remove active class from all video titles
+      const allTitles = document.querySelectorAll('.video-title');
+      allTitles.forEach(el => el.classList.remove('active'));
+
+      // Add active class to clicked video
+      element.classList.add('active');
+
+      // Load video in player
+      const iframe = document.getElementById('videoPlayer');
+      iframe.src = `https://geo.dailymotion.com/player/x1ayyu.html?video=${videoId}`;
+    }
+  </script>
+</body>
+</html>
